@@ -1,11 +1,11 @@
 "use strict";
-
+// Instanciating Express
 const express = require("express"),
   app = express(),
   homeController = require("./controllers/homeController"),
   errorController = require("./controllers/errorController"),
   layouts = require("express-ejs-layouts");
-
+// Parsing
 app.set("view engine", "ejs");
 app.set("port", process.env.PORT || 3000);
 app.use(
@@ -15,8 +15,8 @@ app.use(
 );
 app.use(express.json());
 app.use(layouts);
-app.use(express.static("public"));
-
+app.use(express.static("public"));  // Static content
+// Routes
 app.get("/", (req, res) => {
   res.render("index");
 });
@@ -27,7 +27,7 @@ app.post("/contact", homeController.postedSignUpForm);
 
 app.use(errorController.pageNotFoundError);
 app.use(errorController.internalServerError);
-
+// Web Server listening in port 3000
 app.listen(app.get("port"), () => {
   console.log(`Server running at http://localhost:${app.get("port")}`);
 });
